@@ -2,14 +2,24 @@ jQuery (function ($)
 {
   // Configuration ////////////////////////////////////////////////////////////
 
+  function addMessageEventListener(callback) {
+    (window.addEventListener ? window.addEventListener : window.attachEvent)((window.addEventListener ? "message" : "onmessage"), callback, false);
+  }
+
+  addMessageEventListener(function(e) {
+    var values = e.data.split(",");
+    if (values[0] == "CKEDITOR")
+      CKEDITOR.tools.callFunction(values[1], values[2]);
+  });
+
   function wysiwyg ()
   {
-    CKEDITOR.replace (this, { filebrowserBrowseUrl          : '/admin/documents'
-                            , filebrowserUploadUrl          : '/admin/documents'
-                            , filebrowserImageBrowseUrl     : '/admin/images'
-                            , filebrowserImageUploadUrl     : '/admin/images'
-                            , filebrowserImageBrowseLinkUrl : '/admin/documents'
-                            , filebrowserImageUploadLinkUrl : '/admin/documents'
+    CKEDITOR.replace (this, { filebrowserBrowseUrl          : 'http://asset-manager.meteor.com/'
+                            , filebrowserUploadUrl          : 'http://asset-manager.meteor.com/'
+                            , filebrowserImageBrowseUrl     : 'http://asset-manager.meteor.com/'
+                            , filebrowserImageUploadUrl     : 'http://asset-manager.meteor.com/'
+                            , filebrowserImageBrowseLinkUrl : 'http://asset-manager.meteor.com/'
+                            , filebrowserImageUploadLinkUrl : 'http://asset-manager.meteor.com/'
                             , filebrowserWindowWidth        : 950
                             , filebrowserWindowHeight       : 780
                             })
